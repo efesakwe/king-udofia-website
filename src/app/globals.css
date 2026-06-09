@@ -2,22 +2,333 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Lenis handles smooth scrolling — avoid native conflict */
+html.lenis,
+html.lenis body {
+  height: auto;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c9a96e #0a0a0a;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #c9a96e;
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #d4b97a;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  color: #f5f5f0;
+  background-color: #0a0a0a;
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Film grain noise overlay — reduced on mobile for performance */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+@media (max-width: 768px) {
+  body::after {
+    opacity: 0.012;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    display: none;
+  }
+}
+
+::selection {
+  background-color: #c9a96e;
+  color: #0a0a0a;
+}
+
+::-moz-selection {
+  background-color: #c9a96e;
+  color: #0a0a0a;
+}
+
+a,
+button {
+  transition: all 300ms ease;
+}
+
+/* Custom cursor — desktop fine-pointer only */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor-active,
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active [role="button"],
+  body.custom-cursor-active .cursor-hover {
+    cursor: none;
+  }
+}
+
+.cursor-dot--link {
+  background-color: #c9a96e;
+  mix-blend-mode: difference;
+}
+
+.cursor-circle--link {
+  background-color: #c9a96e;
+  border-color: #c9a96e;
+  mix-blend-mode: difference;
+}
+
+.cursor-circle--link span {
+  color: #0a0a0a;
+}
+
+.cursor-circle--image {
+  background-color: rgba(10, 10, 10, 0.35);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 8s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce), (max-width: 768px) {
+  .animate-ken-burns {
+    animation: none;
+  }
+}
+
+.collaborator-marquee:hover .marquee-item {
+  color: #a0a0a0;
+}
+
+.newsletter-input {
+  border: none;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.4);
+  border-radius: 0;
+  transition:
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.newsletter-input:focus {
+  border-bottom-color: #c9a96e;
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.12);
+  outline: none;
+}
+
+.form-input {
+  border: none;
+  border-bottom: 1px solid #1e1e1e;
+  border-radius: 0;
+  transition:
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.form-input:focus {
+  border-bottom-color: #c9a96e;
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.12);
+  outline: none;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23C9A96E' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  padding-right: 1.5rem;
+}
+
+.form-select option {
+  background-color: #141414;
+  color: #f5f5f0;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.collaborator-marquee .marquee-track {
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.collaborator-marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.skills-marquee .skills-marquee-track {
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.collaborator-marquee .marquee-item {
+  color: #666666;
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 300ms ease;
+}
+
+.collaborator-marquee:hover .marquee-item {
+  color: #a0a0a0;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #c9a96e;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 300ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link--active::after {
+  transform: scaleX(1);
+}
+
+/* Skip to content — visible on keyboard focus */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 10001;
+  padding: 0.75rem 1.25rem;
+  background-color: #c9a96e;
+  color: #0a0a0a;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transform: translateY(-200%);
+  transition: transform 200ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #f5f5f0;
+  outline-offset: 2px;
+}
+
+/* Gold focus ring for keyboard navigation (WCAG 2.1 AA) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid #c9a96e;
+  outline-offset: 2px;
+}
+
+.newsletter-input:focus-visible,
+.form-input:focus-visible,
+.form-select:focus-visible {
+  outline: 2px solid #c9a96e;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .collaborator-marquee .marquee-track,
+  .skills-marquee .skills-marquee-track {
+    animation: none;
+  }
+}
+
+@layer components {
+  .type-label {
+    @apply text-xs uppercase tracking-[0.2em] text-gold;
+  }
+
+  .type-page-title {
+    @apply font-serif text-5xl text-foreground md:text-7xl lg:text-8xl;
+  }
+
+  .type-section-heading {
+    @apply font-serif text-3xl text-foreground md:text-5xl;
+  }
+
+  .type-card-heading {
+    @apply font-serif text-lg text-foreground md:text-xl;
+  }
+
+  .type-body {
+    @apply text-base leading-relaxed text-muted md:text-lg;
+  }
 }
 
 @layer utilities {
