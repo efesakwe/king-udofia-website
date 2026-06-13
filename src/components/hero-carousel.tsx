@@ -2,11 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
-import Fade from "embla-carousel-fade";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { CharReveal } from "@/components/animations/char-reveal";
 import { MagneticButton } from "@/components/animations/magnetic-button";
 import { usePreloaderComplete } from "@/hooks/use-preloader-complete";
 import { ensureGsapPlugins, gsap } from "@/lib/gsap";
@@ -16,15 +12,17 @@ type HeroSlide = {
   id: string;
   imageSrc: string;
   imageAlt: string;
+  objectPosition: string;
   label: string;
   headingLines: string[];
 };
 
 const SLIDES: HeroSlide[] = [
   {
-    id: "composer",
-    imageSrc: IMAGES.hero.portrait,
-    imageAlt: IMAGE_ALTS.heroPortrait,
+    id: "gbedu-conducting",
+    imageSrc: IMAGES.hero.slide1,
+    imageAlt: IMAGE_ALTS.heroSlide1,
+    objectPosition: "center 40%",
     label: "COMPOSER & MUSIC DIRECTOR",
     headingLines: [
       "Music that brings story,",
@@ -32,9 +30,10 @@ const SLIDES: HeroSlide[] = [
     ],
   },
   {
-    id: "gbedu",
-    imageSrc: IMAGES.hero.gbeduStage,
-    imageAlt: IMAGE_ALTS.heroGbeduStage,
+    id: "gbedu-ensemble",
+    imageSrc: IMAGES.hero.slide2,
+    imageAlt: IMAGE_ALTS.heroSlide2,
+    objectPosition: "center 40%",
     label: "GBÈDU — AFRO-JAZZ ORCHESTRAL EXPERIENCE",
     headingLines: [
       "Where African rhythm meets",
@@ -43,24 +42,25 @@ const SLIDES: HeroSlide[] = [
   },
 ];
 
+const AUTOPLAY_MS = 6000;
+
 export function HeroCarousel() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [displayedIndex, setDisplayedIndex] = useState(0);
   const [entranceReady, setEntranceReady] = useState(false);
-  const [labelPlay, setLabelPlay] = useState(false);
 
   const contentRef = useRef<HTMLDivElement>(null);
   const isAnimating = useRef(false);
   const hasEntered = useRef(false);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
-    Fade(),
-    Autoplay({ delay: 6000, stopOnInteraction: true, playOnInit: false }),
-  ]);
-
   usePreloaderComplete(() => {
     setEntranceReady(true);
   });
+
+  useEffect(() => {
+    const fallback = window.setTimeout(() => setEntranceReady(true), 2000);
+    return () => window.clearTimeout(fallback);
+  }, []);
 
   const slide = SLIDES[displayedIndex];
 
@@ -74,13 +74,10 @@ export function HeroCarousel() {
     const lines = content.querySelectorAll("[data-hero-line]");
     const buttons = content.querySelector("[data-hero-buttons]");
 
-    gsap.set(lines, { opacity: 0, y: 32 });
-    if (buttons) gsap.set(buttons, { opacity: 0, y: 24 });
+    gsap.set(lines, { opacity: 1, y: 32 });
+    if (buttons) gsap.set(buttons, { opacity: 1, y: 24 });
 
-    setLabelPlay(false);
-    requestAnimationFrame(() => setLabelPlay(true));
-
-    const timeline = gsap.timeline({ delay: 0.35 });
+    const timeline = gsap.timeline({ delay: 0.2 });
 
     timeline.to(lines, {
       opacity: 1,
@@ -109,14 +106,11 @@ export function HeroCarousel() {
 
     ensureGsapPlugins();
 
-    const labelChars = content.querySelectorAll("[data-char-reveal]");
     const lines = content.querySelectorAll("[data-hero-line]");
     const buttons = content.querySelector("[data-hero-buttons]");
 
-    setLabelPlay(false);
-
     return gsap.timeline().to(
-      [lines, buttons, labelChars],
+      [lines, buttons],
       {
         opacity: 0,
         y: -18,
@@ -129,7 +123,7 @@ export function HeroCarousel() {
 
   const transitionToSlide = useCallback(
     (index: number) => {
-      if (isAnimating.current) return;
+      if (isAnimating.current || index === displayedIndex) return;
       isAnimating.current = true;
 
       animateContentOut().eventCallback("onComplete", () => {
@@ -137,90 +131,88 @@ export function HeroCarousel() {
         requestAnimationFrame(() => animateContentIn());
       });
     },
-    [animateContentOut, animateContentIn],
+    [animateContentOut, animateContentIn, displayedIndex],
   );
 
   useEffect(() => {
-    if (!entranceReady || !emblaApi || hasEntered.current) return;
+    if (!entranceReady || hasEntered.current) return;
 
     hasEntered.current = true;
-    emblaApi.plugins()?.autoplay?.play();
     animateContentIn();
-  }, [entranceReady, emblaApi, animateContentIn]);
+  }, [entranceReady, animateContentIn]);
 
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!entranceReady) return;
 
-    const onSelect = () => {
-      const index = emblaApi.selectedScrollSnap();
-      setSelectedIndex(index);
+    const timer = setInterval(() => {
+      setActiveIndex((current) => {
+        const next = (current + 1) % SLIDES.length;
+        transitionToSlide(next);
+        return next;
+      });
+    }, AUTOPLAY_MS);
 
-      if (!entranceReady || !hasEntered.current) return;
-      if (index === displayedIndex) return;
+    return () => clearInterval(timer);
+  }, [entranceReady, transitionToSlide]);
 
+  const goToSlide = useCallback(
+    (index: number) => {
+      setActiveIndex(index);
       transitionToSlide(index);
-    };
-
-    emblaApi.on("select", onSelect);
-    onSelect();
-
-    return () => {
-      emblaApi.off("select", onSelect);
-    };
-  }, [emblaApi, entranceReady, displayedIndex, transitionToSlide]);
+    },
+    [transitionToSlide],
+  );
 
   const scrollPrev = useCallback(() => {
-    emblaApi?.scrollPrev();
-  }, [emblaApi]);
+    const next = (activeIndex - 1 + SLIDES.length) % SLIDES.length;
+    goToSlide(next);
+  }, [activeIndex, goToSlide]);
 
   const scrollNext = useCallback(() => {
-    emblaApi?.scrollNext();
-  }, [emblaApi]);
+    const next = (activeIndex + 1) % SLIDES.length;
+    goToSlide(next);
+  }, [activeIndex, goToSlide]);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      <div ref={emblaRef} className="h-full overflow-hidden">
-        <div className="flex h-full">
-          {SLIDES.map((item, index) => (
-            <div
-              key={item.id}
-              className="relative h-full min-w-0 flex-[0_0_100%]"
-            >
-              <div className="absolute inset-0 overflow-hidden">
-                <Image
-                  src={item.imageSrc}
-                  alt={item.imageAlt}
-                  fill
-                  unoptimized
-                  priority={index === 0}
-                  className={`object-cover object-center ${
-                    selectedIndex === index ? "animate-ken-burns" : "scale-100"
-                  }`}
-                  sizes="100vw"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
-            </div>
-          ))}
+    <section className="relative isolate h-screen w-full overflow-hidden bg-background">
+      {/* Stacked full-bleed backgrounds — no horizontal flex bleed */}
+      {SLIDES.map((item, index) => (
+        <div
+          key={item.id}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            activeIndex === index ? "z-[1] opacity-100" : "z-0 opacity-0"
+          }`}
+          aria-hidden={activeIndex !== index}
+        >
+          <div
+            className={`absolute inset-0 overflow-hidden ${
+              activeIndex === index ? "animate-ken-burns" : ""
+            }`}
+          >
+            <Image
+              src={item.imageSrc}
+              alt={item.imageAlt}
+              fill
+              unoptimized
+              priority={index === 0}
+              className="object-cover"
+              style={{ objectPosition: item.objectPosition }}
+              sizes="100vw"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/20" />
         </div>
-      </div>
+      ))}
 
-      <div className="pointer-events-none absolute inset-0 flex items-center">
+      {/* Hero copy — always above backgrounds */}
+      <div className="pointer-events-none absolute inset-0 z-[2] flex items-center">
         <div
           ref={contentRef}
           className="pointer-events-auto mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-12"
         >
-          <CharReveal
-            key={`label-${displayedIndex}`}
-            text={slide.label}
-            as="p"
-            animateOn="manual"
-            play={labelPlay && entranceReady}
-            className="type-label tracking-[0.2em]"
-            stagger={0.02}
-          />
+          <p className="type-label-hero tracking-[0.2em]">{slide.label}</p>
 
-          <h1 className="mt-6 max-w-3xl font-serif text-4xl leading-[1.08] text-foreground sm:text-5xl md:text-7xl lg:text-8xl">
+          <h1 className="type-page-title mt-6 max-w-3xl leading-[1.08]">
             {slide.headingLines.map((line) => (
               <span
                 key={`${displayedIndex}-${line}`}
@@ -252,9 +244,9 @@ export function HeroCarousel() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 right-6 flex items-center gap-4 md:right-10 lg:right-12">
+      <div className="absolute bottom-8 right-6 z-[3] flex items-center gap-4 md:right-10 lg:right-12">
         <span className="font-sans text-sm tabular-nums tracking-widest text-foreground/80">
-          {selectedIndex + 1} / {SLIDES.length}
+          {activeIndex + 1} / {SLIDES.length}
         </span>
         <div className="flex items-center gap-2">
           <MagneticButton

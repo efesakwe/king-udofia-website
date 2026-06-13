@@ -9,7 +9,7 @@ const personSchema = {
   url: SITE_URL,
   homeLocation: {
     "@type": "Place",
-    name: "Calgary, Alberta, Canada",
+    name: "United States",
   },
   knowsAbout: [
     "Composition",

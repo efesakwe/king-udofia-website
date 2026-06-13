@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { CollaborationGrid } from "@/components/collaboration-grid";
 
@@ -14,13 +13,11 @@ export function Collaboration() {
           </p>
         </FadeIn>
 
-        <CharReveal
-          as="h2"
-          text="Ways to Work Together"
-          className="type-section-heading mt-3"
-          delay={0.1}
-          stagger={0.03}
-        />
+        <FadeIn delay={0.1}>
+          <div className="section-heading-row mt-3">
+            <h2 className="type-section-heading">Ways to Work Together</h2>
+          </div>
+        </FadeIn>
 
         <div className="mt-12">
           <CollaborationGrid />

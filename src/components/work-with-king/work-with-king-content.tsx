@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { MagneticButton } from "@/components/animations/magnetic-button";
 import { TextReveal } from "@/components/animations/text-reveal";
@@ -54,13 +53,9 @@ export function WorkWithKingContent() {
               <p className="type-label">Get in Touch</p>
             </FadeIn>
 
-            <CharReveal
-              as="h1"
-              text="Work With King"
-              className="mt-4 type-page-title"
-              delay={0.1}
-              stagger={0.03}
-            />
+            <FadeIn delay={0.1}>
+              <h1 className="type-page-title mt-4">Work With King</h1>
+            </FadeIn>
 
             <TextReveal
               text="Whether you're an artist, organization, venue, or filmmaker — let's create something meaningful together."
@@ -76,6 +71,8 @@ export function WorkWithKingContent() {
                 src={IMAGES.workWithKing}
                 alt={IMAGE_ALTS.workWithKing}
                 containerClassName="aspect-[3/4] w-full"
+                objectPosition="50% 15%"
+                speed={0.12}
                 width={900}
                 height={1200}
                 priority
@@ -110,7 +107,7 @@ export function WorkWithKingContent() {
                   </p>
                   <a
                     href="mailto:hello@kingudofia.com"
-                    className="cursor-hover mt-2 inline-block text-gold transition-opacity hover:opacity-80"
+                    className="cursor-hover mt-2 inline-block link-arrow"
                   >
                     hello@kingudofia.com
                   </a>
@@ -121,7 +118,7 @@ export function WorkWithKingContent() {
                   </p>
                   <a
                     href="mailto:booking@kingudofia.com"
-                    className="cursor-hover mt-2 inline-block text-gold transition-opacity hover:opacity-80"
+                    className="cursor-hover mt-2 inline-block link-arrow"
                   >
                     booking@kingudofia.com
                   </a>
@@ -290,13 +287,11 @@ export function WorkWithKingContent() {
 
       <section className="py-32">
         <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12">
-          <CharReveal
-            as="h2"
-            text="Ways to Work Together"
-            className="type-section-heading"
-            delay={0}
-            stagger={0.03}
-          />
+          <FadeIn>
+            <div className="section-heading-row">
+              <h2 className="type-section-heading">Ways to Work Together</h2>
+            </div>
+          </FadeIn>
           <div className="mt-12">
             <CollaborationGrid />
           </div>
@@ -306,9 +301,9 @@ export function WorkWithKingContent() {
       <section className="pb-32">
         <div className="mx-auto max-w-7xl px-6 text-center md:px-10 lg:px-12">
           <FadeIn delay={0}>
-            <div className="mx-auto h-0.5 w-12 bg-gold" aria-hidden="true" />
+            <div className="mx-auto divider-rule divider-rule--gold w-12" aria-hidden="true" />
             <p className="mt-6 text-sm uppercase tracking-[0.25em] text-muted">
-              Based in Calgary, Alberta. Available worldwide.
+              Based in the USA. Available worldwide.
             </p>
           </FadeIn>
         </div>

@@ -3,8 +3,8 @@ const opt = (name: string) => `/images/optimized/${name}.webp`;
 
 export const IMAGES = {
   hero: {
-    portrait: opt("IMG_2384"),
-    gbeduStage: opt("KING1010571"),
+    slide1: opt("KING1010585"),
+    slide2: opt("KING6653"),
   },
   aboutPreview: opt("IMG_2650"),
   aboutBio: opt("IMG_2502"),
@@ -52,10 +52,10 @@ export const IMAGES = {
 } as const;
 
 export const IMAGE_ALTS = {
-  heroPortrait:
-    "King Udofia seated in a blue suit, studio portrait",
-  heroGbeduStage:
-    "The Gbèdu ensemble performing on stage with blue curtain backdrop",
+  heroSlide1:
+    "King Udofia performing live with the Gbèdu ensemble on stage",
+  heroSlide2:
+    "Wide stage shot of King Udofia and the Gbèdu orchestra in performance",
   aboutPreview:
     "King Udofia portrait for about section",
   aboutBio:

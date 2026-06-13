@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { MagneticButton } from "@/components/animations/magnetic-button";
 import { interactiveCardClassName } from "@/lib/card-styles";
@@ -56,18 +55,16 @@ export function SelectedWork() {
                 Selected Work
               </p>
             </FadeIn>
-            <CharReveal
-              as="h2"
-              text="What King Creates"
-              className="type-section-heading mt-3"
-              delay={0.1}
-              stagger={0.03}
-            />
+            <FadeIn delay={0.1}>
+              <div className="section-heading-row mt-3">
+                <h2 className="type-section-heading">What King Creates</h2>
+              </div>
+            </FadeIn>
           </div>
           <FadeIn delay={0.2}>
             <MagneticButton
               href="/selected-work"
-              className="cursor-hover shrink-0 text-sm uppercase tracking-widest text-gold transition-opacity hover:opacity-80"
+              className="cursor-hover shrink-0 link-arrow"
             >
               View all work →
             </MagneticButton>

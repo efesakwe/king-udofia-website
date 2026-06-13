@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { MagneticButton } from "@/components/animations/magnetic-button";
 
@@ -22,13 +21,11 @@ export function WorkWithKingCta({
           <p className="text-lg text-muted">{subtitle}</p>
         </FadeIn>
 
-        <CharReveal
-          as="h2"
-          text={heading}
-          className="mt-4 font-serif text-4xl text-foreground md:text-5xl"
-          delay={0.1}
-          stagger={0.03}
-        />
+        <FadeIn delay={0.1}>
+          <h2 className="mt-4 font-serif text-4xl text-foreground md:text-5xl">
+            {heading}
+          </h2>
+        </FadeIn>
 
         <FadeIn delay={0.25}>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">

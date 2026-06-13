@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { ParallaxImage } from "@/components/animations/parallax-image";
 import { WorkWithKingCta } from "@/components/cta/work-with-king-cta";
@@ -20,13 +19,9 @@ export function PressPageContent() {
                 <p className="type-label">Media</p>
               </FadeIn>
 
-              <CharReveal
-                as="h1"
-                text="Press & Coverage"
-                className="mt-4 type-page-title"
-                delay={0.1}
-                stagger={0.03}
-              />
+              <FadeIn delay={0.1}>
+                <h1 className="type-page-title mt-4">Press &amp; Coverage</h1>
+              </FadeIn>
             </div>
 
             <FadeIn delay={0.15}>
@@ -35,6 +30,8 @@ export function PressPageContent() {
                   src={IMAGES.pressAccent}
                   alt={IMAGE_ALTS.pressAccent}
                   containerClassName="aspect-[3/4] w-full"
+                  objectPosition="50% 15%"
+                  speed={0.12}
                   width={900}
                   height={1200}
                   priority

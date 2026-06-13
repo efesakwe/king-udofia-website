@@ -17,9 +17,17 @@ export function Preloader() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    const forceComplete = () => {
+      dispatchPreloaderComplete();
+      setActive(false);
+    };
+
+    const safetyTimeout = window.setTimeout(forceComplete, 3500);
+
     try {
       if (sessionStorage.getItem(PRELOADER_STORAGE_KEY)) {
-        dispatchPreloaderComplete();
+        forceComplete();
+        window.clearTimeout(safetyTimeout);
         return;
       }
     } catch {
@@ -32,11 +40,14 @@ export function Preloader() {
       } catch {
         // ignore storage errors
       }
-      dispatchPreloaderComplete();
+      forceComplete();
+      window.clearTimeout(safetyTimeout);
       return;
     }
 
     setActive(true);
+
+    return () => window.clearTimeout(safetyTimeout);
   }, []);
 
   useEffect(() => {

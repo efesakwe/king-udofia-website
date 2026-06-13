@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { MagneticButton } from "@/components/animations/magnetic-button";
 import { TextReveal } from "@/components/animations/text-reveal";
@@ -17,13 +16,11 @@ export function GbeduPresenters() {
   return (
     <section className="py-32">
       <div className="mx-auto max-w-4xl px-6 md:px-10 lg:px-12">
-        <CharReveal
-          as="h2"
-          text="Bring Gbèdu to Your Stage"
-          className="font-serif text-3xl text-foreground md:text-5xl"
-          delay={0}
-          stagger={0.03}
-        />
+        <FadeIn>
+          <h2 className="font-serif text-3xl text-foreground md:text-5xl">
+            Bring Gbèdu to Your Stage
+          </h2>
+        </FadeIn>
 
         <TextReveal
           text="Gbèdu is available for festivals, performing arts centres, universities, cultural institutions, and special events. King works closely with presenters to ensure each performance is tailored to your audience, your venue, and your vision."
@@ -43,7 +40,7 @@ export function GbeduPresenters() {
                   key={item}
                   className="flex gap-3 text-sm leading-relaxed text-muted md:text-base"
                 >
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gold" />
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ember" />
                   {item}
                 </li>
               ))}

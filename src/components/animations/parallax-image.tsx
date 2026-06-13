@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { ensureGsapPlugins, gsap } from "@/lib/gsap";
+import { ensureGsapPlugins, gsap, scrollTriggerRevealDefaults } from "@/lib/gsap";
 import { shouldDisableParallax } from "@/lib/motion";
 
 type ParallaxImageProps = {
@@ -14,6 +14,7 @@ type ParallaxImageProps = {
   containerClassName?: string;
   width?: number;
   height?: number;
+  objectPosition?: string;
   /** Above-the-fold images should set priority to disable lazy loading */
   priority?: boolean;
   /** Set false for full-bleed heroes that define their own height */
@@ -23,11 +24,12 @@ type ParallaxImageProps = {
 export function ParallaxImage({
   src,
   alt,
-  speed = 0.3,
+  speed = 0.2,
   className,
   containerClassName,
   width = 1200,
   height = 800,
+  objectPosition = "50% 50%",
   priority = false,
   fixedAspect = true,
 }: ParallaxImageProps) {
@@ -44,7 +46,7 @@ export function ParallaxImage({
       const image = imageRef.current;
       if (!container || !image) return;
 
-      const travel = speed * 100;
+      const travel = speed * 60;
 
       gsap.fromTo(
         image,
@@ -57,6 +59,7 @@ export function ParallaxImage({
             start: "top bottom",
             end: "bottom top",
             scrub: true,
+            ...scrollTriggerRevealDefaults,
           },
         },
       );
@@ -67,27 +70,26 @@ export function ParallaxImage({
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden ${containerClassName ?? ""}`}
+      className={`relative overflow-hidden bg-background ${containerClassName ?? ""}`}
       style={
         fixedAspect ? { aspectRatio: `${width} / ${height}` } : undefined
       }
     >
       <div
         ref={imageRef}
-        className={`relative w-full will-change-transform ${
-          parallaxDisabled ? "h-full" : "h-[120%]"
+        className={`absolute inset-0 will-change-transform ${
+          parallaxDisabled ? "" : "-top-[8%] h-[116%]"
         } ${className ?? ""}`}
-        style={parallaxDisabled ? undefined : { transform: "scale(1.2)" }}
       >
         <Image
           src={src}
           alt={alt}
-          width={width}
-          height={height}
+          fill
           unoptimized
           priority={priority}
           loading={priority ? undefined : "lazy"}
-          className="h-full w-full object-cover"
+          className="object-cover"
+          style={{ objectPosition }}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
       </div>

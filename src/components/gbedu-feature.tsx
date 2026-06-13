@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { MagneticButton } from "@/components/animations/magnetic-button";
 import { IMAGES } from "@/lib/images";
@@ -25,16 +24,14 @@ export function GbeduFeature() {
           </p>
         </FadeIn>
 
-        <CharReveal
-          as="h2"
-          text="Gbèdu: An Afro-Jazz Orchestral Experience"
-          className="type-section-heading mt-4 max-w-4xl leading-snug"
-          delay={0.1}
-          stagger={0.025}
-        />
+        <FadeIn delay={0.1}>
+          <h2 className="type-section-heading mt-4 max-w-4xl leading-snug">
+            Gbèdu: An Afro-Jazz Orchestral Experience
+          </h2>
+        </FadeIn>
 
         <FadeIn delay={0.2}>
-          <div className="my-6 h-0.5 w-20 bg-gold" aria-hidden="true" />
+          <div className="divider-rule divider-rule--accent my-6" aria-hidden="true" />
         </FadeIn>
 
         <FadeIn delay={0.25}>
@@ -57,13 +54,13 @@ export function GbeduFeature() {
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
             <MagneticButton
               href="/gbedu"
-              className="cursor-hover text-sm uppercase tracking-widest text-gold transition-opacity hover:opacity-80"
+              className="cursor-hover link-arrow"
             >
               Explore Gbèdu →
             </MagneticButton>
             <MagneticButton
               href="/work-with-king"
-              className="cursor-hover text-sm uppercase tracking-widest text-gold transition-opacity hover:opacity-80"
+              className="cursor-hover link-arrow"
             >
               Bring Gbèdu to Your Venue →
             </MagneticButton>

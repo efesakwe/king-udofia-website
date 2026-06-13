@@ -1,8 +1,8 @@
 "use client";
 
-import { createElement, useRef } from "react";
+import { createElement, useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { ensureGsapPlugins, gsap } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/motion";
 
 type CharRevealProps = {
@@ -30,14 +30,11 @@ export function CharReveal({
 
   useGSAP(
     () => {
-      ensureGsapPlugins();
       const container = containerRef.current;
       if (!container) return;
 
       const targets = container.querySelectorAll("[data-char-reveal]");
       if (!targets.length) return;
-
-      gsap.set(targets, { opacity: 0, y: "100%" });
 
       if (prefersReducedMotion()) {
         gsap.set(targets, { opacity: 1, y: 0 });
@@ -45,6 +42,7 @@ export function CharReveal({
       }
 
       if (animateOn === "manual") {
+        gsap.set(targets, { opacity: 0, y: "100%" });
         if (!play) return;
 
         gsap.to(targets, {
@@ -58,22 +56,40 @@ export function CharReveal({
         return;
       }
 
-      gsap.to(targets, {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: "power3.out",
-        stagger,
-        delay,
-        scrollTrigger: {
-          trigger: container,
-          start: "top 85%",
-          once: true,
-        },
-      });
+      gsap.set(targets, { opacity: 0, y: "100%" });
     },
-    { scope: containerRef, dependencies: [text, delay, stagger, animateOn, play] },
+    { scope: containerRef, dependencies: [text, animateOn, play, delay, stagger] },
   );
+
+  useEffect(() => {
+    if (animateOn !== "scroll") return;
+
+    const container = containerRef.current;
+    if (!container || prefersReducedMotion()) return;
+
+    const targets = container.querySelectorAll("[data-char-reveal]");
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+
+        gsap.to(targets, {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger,
+          delay,
+        });
+        observer.disconnect();
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [animateOn, text, delay, stagger]);
 
   const content = characters.map((char, index) =>
     char === " " ? (

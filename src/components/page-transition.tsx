@@ -128,7 +128,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
     <motion.div
       key={pathname}
       variants={contentVariants}
-      initial="initial"
+      initial={false}
       animate="animate"
       exit="exit"
     >

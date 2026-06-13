@@ -27,7 +27,7 @@ function CollaborationCard({
         </p>
         <Link
           href={href}
-          className="cursor-hover mt-6 text-sm uppercase tracking-widest text-gold transition-opacity hover:opacity-80"
+          className="cursor-hover mt-6 link-arrow"
         >
           {linkLabel}
         </Link>

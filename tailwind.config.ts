@@ -20,6 +20,8 @@ const config: Config = {
           dark: "#B8924F",
           light: "#D4B97A",
         },
+        /** Secondary accent — warm earthy red (#C44536) */
+        ember: "#C44536",
         muted: {
           DEFAULT: "#A0A0A0",
           dark: "#666666",

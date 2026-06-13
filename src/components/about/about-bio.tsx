@@ -1,6 +1,6 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
+import { FadeIn } from "@/components/animations/fade-in";
 import { MagneticButton } from "@/components/animations/magnetic-button";
 import { ParallaxImage } from "@/components/animations/parallax-image";
 import { TextReveal } from "@/components/animations/text-reveal";
@@ -22,21 +22,21 @@ export function AboutBio() {
             src={IMAGES.aboutBio}
             alt={IMAGE_ALTS.aboutBio}
             containerClassName="aspect-[3/4] w-full"
+            objectPosition="50% 15%"
+            speed={0.12}
             width={900}
             height={1200}
           />
         </div>
 
         <div className="flex flex-col gap-6">
-          <CharReveal
-            as="h2"
-            text="Nigerian-Canadian. Composer. Conductor. Storyteller."
-            className="type-section-heading leading-snug"
-            delay={0}
-            stagger={0.025}
-          />
+          <FadeIn>
+            <h2 className="type-section-heading leading-snug">
+              Nigerian-Canadian. Composer. Conductor. Storyteller.
+            </h2>
+          </FadeIn>
 
-          <div className="h-0.5 w-20 bg-gold" aria-hidden="true" />
+          <div className="divider-rule divider-rule--accent" aria-hidden="true" />
 
           {BIO_PARAGRAPHS.map((paragraph, index) => (
             <TextReveal

@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { TextReveal } from "@/components/animations/text-reveal";
 
@@ -18,13 +17,13 @@ export function AboutPhilosophy() {
           <p className="type-label">Philosophy</p>
         </FadeIn>
 
-        <CharReveal
-          as="blockquote"
-          text="Music should serve the moment, not the ego."
-          className="mt-8 type-section-heading italic leading-snug"
-          delay={0.1}
-          stagger={0.025}
-        />
+        <FadeIn delay={0.1}>
+          <blockquote className="section-heading-row mt-8">
+            <p className="type-section-heading italic leading-snug">
+              Music should serve the moment, not the ego.
+            </p>
+          </blockquote>
+        </FadeIn>
 
         <div className="mt-12 flex flex-col gap-8">
           {PHILOSOPHY_PARAGRAPHS.map((paragraph, index) => (

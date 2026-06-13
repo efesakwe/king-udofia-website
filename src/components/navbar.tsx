@@ -236,7 +236,7 @@ export function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className={`nav-link cursor-hover text-sm uppercase tracking-widest text-foreground/90 transition-colors hover:text-gold ${
+                className={`nav-link cursor-hover text-sm uppercase tracking-widest text-foreground/90 transition-colors ${
                   isActive(href) ? "nav-link--active text-gold" : ""
                 }`}
               >
@@ -296,7 +296,7 @@ export function Navbar() {
               href={href}
               data-mobile-link
               onClick={() => handleMobileNavClick(href)}
-              className={`cursor-hover font-serif text-4xl transition-colors hover:text-gold ${
+              className={`cursor-hover font-serif text-4xl transition-colors hover:text-ember ${
                 isActive(href) ? "text-gold" : "text-foreground"
               }`}
             >

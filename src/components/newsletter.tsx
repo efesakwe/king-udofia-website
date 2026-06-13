@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 
 export function Newsletter() {
@@ -15,13 +14,11 @@ export function Newsletter() {
               </p>
             </FadeIn>
 
-            <CharReveal
-              as="h2"
-              text="Be the first to hear."
-              className="type-section-heading mt-3"
-              delay={0.1}
-              stagger={0.03}
-            />
+            <FadeIn delay={0.1}>
+              <div className="section-heading-row mt-3">
+                <h2 className="type-section-heading">Be the first to hear.</h2>
+              </div>
+            </FadeIn>
 
             <FadeIn delay={0.2}>
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted">
@@ -32,6 +29,10 @@ export function Newsletter() {
           </div>
 
           <FadeIn delay={0.3}>
+            <span
+              className="accent-dot mb-8 ml-1 block opacity-40"
+              aria-hidden="true"
+            />
             {/* TODO: connect to mailing list provider (ConvertKit, Mailchimp, etc.) */}
             <form
               className="flex flex-col gap-8"

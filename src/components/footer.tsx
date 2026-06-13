@@ -48,7 +48,7 @@ function FooterLink({
   external?: boolean;
 }) {
   const className =
-    "footer-link block text-sm text-muted transition-[color,padding-left] duration-300 hover:pl-2 hover:text-foreground";
+    "footer-link block text-sm text-muted transition-[color,padding-left] duration-300 hover:pl-2";
 
   if (external) {
     return (
@@ -149,7 +149,8 @@ export function Footer() {
           </div>
 
           <div ref={col2Ref}>
-            <h3 className="mb-6 text-xs font-medium uppercase tracking-[0.25em] text-gold">
+            <h3 className="mb-6 flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.25em] text-ember">
+              <span className="accent-dot" aria-hidden="true" />
               Navigate
             </h3>
             <nav className="flex flex-col gap-3" aria-label="Footer navigation">
@@ -160,17 +161,23 @@ export function Footer() {
           </div>
 
           <div ref={col3Ref}>
-            <h3 className="mb-6 text-xs font-medium uppercase tracking-[0.25em] text-gold">
+            <h3 className="mb-6 flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.25em] text-ember">
+              <span className="accent-dot" aria-hidden="true" />
               Connect
             </h3>
             <nav className="flex flex-col gap-3" aria-label="Footer connect">
               {CONNECT_LINKS.map(({ label, href, external }) => (
-                <FooterLink
-                  key={label}
-                  href={href}
-                  label={label}
-                  external={external}
-                />
+                <div key={label} className="flex items-center gap-2.5">
+                  <span
+                    className="accent-dot opacity-50"
+                    aria-hidden="true"
+                  />
+                  <FooterLink
+                    href={href}
+                    label={label}
+                    external={external}
+                  />
+                </div>
               ))}
             </nav>
           </div>

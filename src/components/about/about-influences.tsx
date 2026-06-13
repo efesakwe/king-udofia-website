@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 
 const INFLUENCES = [
@@ -38,13 +37,11 @@ export function AboutInfluences() {
           <p className="type-label">Influences</p>
         </FadeIn>
 
-        <CharReveal
-          as="h2"
-          text="Roots & Inspirations"
-          className="type-section-heading mt-3"
-          delay={0.1}
-          stagger={0.03}
-        />
+        <FadeIn delay={0.1}>
+          <div className="section-heading-row mt-3">
+            <h2 className="type-section-heading">Roots & Inspirations</h2>
+          </div>
+        </FadeIn>
 
         <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-3">
           {INFLUENCES.map((item, index) => (

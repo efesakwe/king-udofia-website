@@ -1,8 +1,8 @@
 "use client";
 
-import { createElement, useRef } from "react";
+import { createElement, useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { ensureGsapPlugins, gsap } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/motion";
 
 type TextRevealProps = {
@@ -31,36 +31,59 @@ export function TextReveal({
 
   useGSAP(
     () => {
-      ensureGsapPlugins();
       const container = containerRef.current;
       if (!container) return;
 
       const targets = container.querySelectorAll("[data-reveal-unit]");
       if (!targets.length) return;
-
-      if (prefersReducedMotion()) {
-        gsap.set(targets, { opacity: 1, y: 0 });
-        return;
-      }
-
-      gsap.set(targets, { opacity: 0, y: 20 });
-
-      gsap.to(targets, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger,
-        delay,
-        scrollTrigger: {
-          trigger: container,
-          start: "top 85%",
-          once: true,
-        },
-      });
+      gsap.set(targets, { opacity: 1, y: 0 });
     },
-    { scope: containerRef, dependencies: [text, delay, stagger, split] },
+    { scope: containerRef, dependencies: [text, split] },
   );
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || prefersReducedMotion()) return;
+
+    const targets = container.querySelectorAll("[data-reveal-unit]");
+    if (!targets.length) return;
+
+    let revealed = false;
+
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
+      observer.disconnect();
+      gsap.fromTo(
+        targets,
+        { opacity: 1, y: 16 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger,
+          delay,
+        },
+      );
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) reveal();
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -5% 0px" },
+    );
+
+    observer.observe(container);
+
+    const fallback = window.setTimeout(reveal, 800);
+
+    return () => {
+      window.clearTimeout(fallback);
+      observer.disconnect();
+    };
+  }, [text, delay, stagger, split]);
 
   const content =
     split === "line"

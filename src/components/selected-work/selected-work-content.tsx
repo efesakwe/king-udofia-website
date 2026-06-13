@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { ParallaxImage } from "@/components/animations/parallax-image";
 import { WorkWithKingCta } from "@/components/cta/work-with-king-cta";
@@ -70,13 +69,9 @@ export function SelectedWorkContent() {
             <p className="type-label">Portfolio</p>
           </FadeIn>
 
-          <CharReveal
-            as="h1"
-            text="Selected Work"
-            className="mt-4 type-page-title"
-            delay={0.1}
-            stagger={0.03}
-          />
+          <FadeIn delay={0.1}>
+            <h1 className="type-page-title mt-4">Selected Work</h1>
+          </FadeIn>
 
           <FadeIn delay={0.2}>
             <div className="mt-12 flex flex-wrap gap-x-8 gap-y-4">
@@ -90,12 +85,12 @@ export function SelectedWorkContent() {
                     className={`relative pb-2 text-sm uppercase tracking-widest transition-colors duration-300 ${
                       isActive
                         ? "text-gold"
-                        : "text-muted hover:text-foreground"
+                        : "text-muted hover:text-ember"
                     }`}
                   >
                     {filter}
                     <span
-                      className={`absolute bottom-0 left-0 h-px w-full origin-left bg-gold transition-transform duration-300 ${
+                      className={`absolute bottom-0 left-0 h-px w-full origin-left bg-ember transition-transform duration-300 ${
                         isActive ? "scale-x-100" : "scale-x-0"
                       }`}
                     />

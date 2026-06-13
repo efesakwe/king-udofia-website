@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { CharReveal } from "@/components/animations/char-reveal";
+import { FadeIn } from "@/components/animations/fade-in";
 import { TextReveal } from "@/components/animations/text-reveal";
 import { ensureGsapPlugins, gsap } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/motion";
@@ -73,13 +73,13 @@ export function AboutProcess() {
   return (
     <section ref={sectionRef} className="py-32">
       <div className="mx-auto max-w-4xl px-6 md:px-10 lg:px-12">
-        <CharReveal
-          as="h2"
-          text="Collaboration as creative respect."
-          className="type-section-heading"
-          delay={0}
-          stagger={0.03}
-        />
+        <FadeIn>
+          <div className="section-heading-row">
+            <h2 className="type-section-heading">
+              Collaboration as creative respect.
+            </h2>
+          </div>
+        </FadeIn>
 
         <TextReveal
           text="King's process is built on listening first — understanding the story before writing a single note. Every collaboration is a partnership grounded in respect, clarity, and shared purpose."

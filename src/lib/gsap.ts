@@ -10,3 +10,8 @@ export function ensureGsapPlugins() {
 }
 
 export { gsap, ScrollTrigger };
+
+/** Shared ScrollTrigger options for reveal animations */
+export const scrollTriggerRevealDefaults = {
+  invalidateOnRefresh: true,
+} as const;

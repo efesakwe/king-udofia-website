@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { MagneticButton } from "@/components/animations/magnetic-button";
 import { ParallaxImage } from "@/components/animations/parallax-image";
@@ -30,16 +29,14 @@ export function GbeduHero() {
             <p className="type-label">Flagship Experience</p>
           </FadeIn>
 
-          <CharReveal
-            as="h1"
-            text="Gbèdu: An Afro-Jazz Orchestral Experience"
-            className="type-page-title mt-6 max-w-4xl leading-[1.08]"
-            delay={0.1}
-            stagger={0.025}
-          />
+          <FadeIn delay={0.1}>
+            <h1 className="type-page-title mt-6 max-w-4xl leading-[1.08]">
+              Gbèdu: An Afro-Jazz Orchestral Experience
+            </h1>
+          </FadeIn>
 
           <FadeIn delay={0.25}>
-            <div className="my-6 h-0.5 w-20 bg-gold" aria-hidden="true" />
+            <div className="divider-rule divider-rule--accent my-6" aria-hidden="true" />
           </FadeIn>
 
           <FadeIn delay={0.3}>

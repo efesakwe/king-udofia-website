@@ -1,6 +1,5 @@
 "use client";
 
-import { CharReveal } from "@/components/animations/char-reveal";
 import { FadeIn } from "@/components/animations/fade-in";
 import { SkillsMarquee } from "@/components/about/skills-marquee";
 
@@ -12,13 +11,9 @@ export function AboutHero() {
           <p className="type-label">The Artist</p>
         </FadeIn>
 
-        <CharReveal
-          as="h1"
-          text="About King"
-          className="mt-4 type-page-title"
-          delay={0.1}
-          stagger={0.04}
-        />
+        <FadeIn delay={0.1}>
+          <h1 className="type-page-title mt-4">About King</h1>
+        </FadeIn>
 
         <SkillsMarquee />
       </div>

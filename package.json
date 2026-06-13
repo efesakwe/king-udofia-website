@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "optimize-images": "node scripts/optimize-images.js",
-    "deploy": "npx wrangler pages deploy out"
+    "deploy": "npx wrangler pages deploy out",
+    "pages:build": "npm run build",
+    "pages:deploy": "npx wrangler pages deploy out --project-name=king-udofia-website",
+    "pages:preview": "npx wrangler pages dev out"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

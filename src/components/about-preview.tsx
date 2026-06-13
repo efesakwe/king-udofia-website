@@ -3,7 +3,6 @@
 import { FadeIn } from "@/components/animations/fade-in";
 import { MagneticButton } from "@/components/animations/magnetic-button";
 import { ParallaxImage } from "@/components/animations/parallax-image";
-import { TextReveal } from "@/components/animations/text-reveal";
 import { IMAGE_ALTS, IMAGES } from "@/lib/images";
 
 export function AboutPreview() {
@@ -15,6 +14,8 @@ export function AboutPreview() {
             src={IMAGES.aboutPreview}
             alt={IMAGE_ALTS.aboutPreview}
             containerClassName="aspect-[3/4] w-full"
+            objectPosition="50% 15%"
+            speed={0.12}
             width={900}
             height={1200}
           />
@@ -27,13 +28,13 @@ export function AboutPreview() {
             </p>
           </FadeIn>
 
-          <TextReveal
-            as="h2"
-            text="Powerful musical experiences rooted in culture and story."
-            className="type-section-heading leading-snug"
-            delay={0.1}
-            stagger={0.04}
-          />
+          <FadeIn delay={0.1}>
+            <div className="section-heading-row">
+              <h2 className="type-section-heading leading-snug">
+                Powerful musical experiences rooted in culture and story.
+              </h2>
+            </div>
+          </FadeIn>
 
           <FadeIn delay={0.2}>
             <p className="type-body">
@@ -55,7 +56,7 @@ export function AboutPreview() {
           <FadeIn delay={0.4}>
             <MagneticButton
               href="/about"
-              className="cursor-hover mt-2 inline-block text-sm uppercase tracking-widest text-gold transition-opacity hover:opacity-80"
+              className="cursor-hover mt-2 inline-block link-arrow"
             >
               Read the full story →
             </MagneticButton>

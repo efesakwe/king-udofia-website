@@ -32,7 +32,7 @@ export function PressCard({
         {showLink && (
           <Link
             href={linkHref}
-            className="cursor-hover mt-4 text-sm uppercase tracking-widest text-gold transition-opacity hover:opacity-80"
+            className="cursor-hover link-arrow"
           >
             Read more →
           </Link>
