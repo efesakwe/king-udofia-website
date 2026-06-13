@@ -9,8 +9,8 @@
     "lint": "next lint",
     "optimize-images": "node scripts/optimize-images.js",
     "deploy": "npx wrangler pages deploy out",
-    "pages:build": "npm run build",
-    "pages:deploy": "npx wrangler pages deploy out --project-name=king-udofia-website",
+    "pages:build": "npm run build && find out/images -maxdepth 1 \\( -name '*.jpg' -o -name '*.JPG' -o -name '*.jpeg' \\) -delete",
+    "pages:deploy": "npm run pages:build && npx wrangler pages deploy out --project-name=king-udofia-website",
     "pages:preview": "npx wrangler pages dev out"
   },
   "dependencies": {
