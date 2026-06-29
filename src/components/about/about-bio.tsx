@@ -9,7 +9,7 @@ import { IMAGE_ALTS, IMAGES } from "@/lib/images";
 const BIO_PARAGRAPHS = [
   "King Udofia is a Nigerian-Canadian composer, arranger, conductor, music director, and artist. Born from a lineage rich in cultural tradition, King grew up in a world where music was never just entertainment — it was memory, ceremony, identity, and community.",
   "Formally trained in jazz composition and orchestration, he has developed a rare ability to move fluidly between genres — from classical orchestration to Afrobeat, jazz, gospel, and film scoring — while always maintaining a clear, culturally grounded artistic voice.",
-  "Over the course of his career, King has collaborated with artists and institutions including Disney Animation, Calgary Stampede, Titilope Sonuga, Femi Leye, the Calgary Jazz Orchestra, Johnny Summers, and Ethnic Festivals Calgary.",
+  "Over the course of his career, King has collaborated with artists and institutions including Disney Animation, Calgary Stampede, Titilope Sonuga, Femi Leye, the Calgary Jazz Orchestra, Johnny Summers, and Key30 Orchestra.",
   "In 2026, he created and produced Gbèdu — a sold-out Afro-jazz orchestral experience that marked a milestone moment in Calgary's cultural landscape and established King as a distinctive voice in Canadian music.",
 ] as const;
 
@@ -31,7 +31,7 @@ export function AboutBio() {
 
         <div className="flex flex-col gap-6">
           <FadeIn>
-            <h2 className="type-section-heading leading-snug">
+            <h2 className="type-section-heading">
               Nigerian-Canadian. Composer. Conductor. Storyteller.
             </h2>
           </FadeIn>
@@ -48,18 +48,12 @@ export function AboutBio() {
             />
           ))}
 
-          <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="mt-4">
             <MagneticButton
               href="/work-with-king"
               className="cursor-hover bg-gold px-6 py-3 text-sm uppercase tracking-widest text-background transition-opacity hover:opacity-90"
             >
               Work With King
-            </MagneticButton>
-            <MagneticButton
-              href="/selected-work"
-              className="cursor-hover border border-gold px-6 py-3 text-sm uppercase tracking-widest text-gold transition-colors hover:bg-gold/10"
-            >
-              View Selected Work
             </MagneticButton>
           </div>
         </div>

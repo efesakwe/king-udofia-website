@@ -1,8 +1,6 @@
 import { AboutBio } from "@/components/about/about-bio";
 import { AboutCta } from "@/components/about/about-cta";
 import { AboutHero } from "@/components/about/about-hero";
-import { AboutInfluences } from "@/components/about/about-influences";
-import { AboutPhilosophy } from "@/components/about/about-philosophy";
 import { AboutProcess } from "@/components/about/about-process";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -18,8 +16,6 @@ export default function AboutPage() {
     <main className="bg-background">
       <AboutHero />
       <AboutBio />
-      <AboutPhilosophy />
-      <AboutInfluences />
       <AboutProcess />
       <AboutCta />
     </main>

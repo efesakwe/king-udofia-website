@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata = createPageMetadata({
   title: "Work With King — King Udofia",
   description:
-    "Contact King Udofia for composition, arranging, music direction, Gbèdu bookings, and film scoring. Based in the USA, available worldwide.",
+    "Contact King Udofia for composition, arranging, music direction, Gbèdu bookings, and film scoring.",
   path: "/work-with-king",
 });
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { FadeIn } from "@/components/animations/fade-in";
-import { MagneticButton } from "@/components/animations/magnetic-button";
 import { interactiveCardClassName } from "@/lib/card-styles";
 
 const WORK_CARDS = [
@@ -51,9 +50,7 @@ export function SelectedWork() {
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
             <FadeIn delay={0}>
-              <p className="type-label">
-                Selected Work
-              </p>
+              <p className="type-label">Selected Work</p>
             </FadeIn>
             <FadeIn delay={0.1}>
               <div className="section-heading-row mt-3">
@@ -61,14 +58,6 @@ export function SelectedWork() {
               </div>
             </FadeIn>
           </div>
-          <FadeIn delay={0.2}>
-            <MagneticButton
-              href="/selected-work"
-              className="cursor-hover shrink-0 link-arrow"
-            >
-              View all work →
-            </MagneticButton>
-          </FadeIn>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">

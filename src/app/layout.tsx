@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import { CustomCursor } from "@/components/custom-cursor";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import {
@@ -11,8 +10,9 @@ import { Preloader } from "@/components/preloader";
 import { SkipLink } from "@/components/skip-link";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import {
-  createPageMetadata,
   DEFAULT_DESCRIPTION,
+  OG_IMAGE,
+  SITE_NAME,
   SITE_URL,
 } from "@/lib/seo";
 import "./globals.css";
@@ -37,11 +37,25 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  ...createPageMetadata({
+  title: "King Udofia — Composer, Arranger & Music Director",
+  description: DEFAULT_DESCRIPTION,
+  alternates: {
+    canonical: SITE_URL,
+  },
+  openGraph: {
     title: "King Udofia — Composer, Arranger & Music Director",
     description: DEFAULT_DESCRIPTION,
-    path: "/",
-  }),
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    images: [OG_IMAGE],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "King Udofia — Composer, Arranger & Music Director",
+    description: DEFAULT_DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
 };
 
 export default function RootLayout({
@@ -63,7 +77,6 @@ export default function RootLayout({
           </div>
           <Footer />
         </SmoothScroll>
-        <CustomCursor />
         <Preloader />
       </body>
     </html>

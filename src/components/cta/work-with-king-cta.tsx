@@ -37,7 +37,7 @@ export function WorkWithKingCta({
             </MagneticButton>
             {showEpk && (
               <MagneticButton
-                href="/epk"
+                href="/work-with-king"
                 className="cursor-hover border border-gold px-6 py-3 text-sm uppercase tracking-widest text-gold transition-colors hover:bg-gold/10"
               >
                 Request the EPK

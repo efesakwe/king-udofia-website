@@ -4,13 +4,7 @@ import { FadeIn } from "@/components/animations/fade-in";
 import { ParallaxImage } from "@/components/animations/parallax-image";
 import { IMAGES } from "@/lib/images";
 
-function GalleryItem({
-  src,
-  alt,
-}: {
-  src: string;
-  alt: string;
-}) {
+function GalleryItem({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="group overflow-hidden rounded-sm">
       <div className="overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105">
@@ -38,20 +32,11 @@ export function GbeduGallery() {
 
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {IMAGES.gallery.map((item, index) => (
-            <FadeIn key={item.src} delay={index * 0.08}>
+            <FadeIn key={item.src} delay={index * 0.05}>
               <GalleryItem src={item.src} alt={item.alt} />
             </FadeIn>
           ))}
         </div>
-
-        <FadeIn delay={0.3}>
-          {/* TODO: replace with YouTube embed */}
-          <div className="mt-12 flex aspect-video items-center justify-center border border-card-border bg-card">
-            <p className="text-sm uppercase tracking-widest text-muted">
-              Performance video — coming soon
-            </p>
-          </div>
-        </FadeIn>
       </div>
     </section>
   );

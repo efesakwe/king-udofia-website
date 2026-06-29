@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "optimize-images": "node scripts/optimize-images.js",
+    "generate-og-image": "node scripts/generate-og-image.js",
+    "prebuild": "node scripts/generate-og-image.js",
     "deploy": "npx wrangler pages deploy out",
-    "pages:build": "npm run build && find out/images -maxdepth 1 \\( -name '*.jpg' -o -name '*.JPG' -o -name '*.jpeg' \\) -delete",
+    "pages:build": "npm run build",
     "pages:deploy": "npm run pages:build && npx wrangler pages deploy out --project-name=king-udofia-website",
     "pages:preview": "npx wrangler pages dev out"
   },

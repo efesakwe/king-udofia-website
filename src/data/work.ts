@@ -21,7 +21,7 @@ export const WORK_ENTRIES: WorkEntry[] = [
     category: "Gbèdu",
     year: "2026",
     description: "Sold-out premiere blending African rhythm with orchestral jazz",
-    image: "/images/optimized/KING6613.webp",
+    image: "/images/KING6613.jpg",
     imageAlt:
       "The Gbèdu ensemble performing on stage at Afro Jazz Fest",
   },
@@ -31,7 +31,7 @@ export const WORK_ENTRIES: WorkEntry[] = [
     category: "Music Direction",
     year: "2025",
     description: "Musical direction for the annual grandstand production",
-    image: "/images/optimized/IMG_2438.webp",
+    image: "/images/IMG_2438.jpg",
     imageAlt: "King Udofia — Calgary Stampede Grandstand Show",
   },
   {
@@ -40,7 +40,7 @@ export const WORK_ENTRIES: WorkEntry[] = [
     category: "Composition",
     year: "2024",
     description: "Original compositions for Disney Animation projects",
-    image: "/images/optimized/IMG_2224.webp",
+    image: "/images/IMG_22241.jpg",
     imageAlt: "King Udofia — Disney Animation Collaboration",
   },
   {
@@ -50,7 +50,7 @@ export const WORK_ENTRIES: WorkEntry[] = [
     year: "2025",
     description:
       "Orchestral arrangements for poet Titilope Sonuga's live performances",
-    image: "/images/optimized/IMG_2543.webp",
+    image: "/images/IMG_2543.jpg",
     imageAlt: "King Udofia — Titilope Sonuga spoken word and orchestra",
   },
   {
@@ -59,7 +59,7 @@ export const WORK_ENTRIES: WorkEntry[] = [
     category: "Arranging",
     year: "2024",
     description: "Full orchestral arrangements for the Calgary Jazz Orchestra season",
-    image: "/images/optimized/IMG_2533.webp",
+    image: "/images/IMG_2533.jpg",
     imageAlt: "King Udofia — Calgary Jazz Orchestra season arrangements",
   },
   {
@@ -68,7 +68,7 @@ export const WORK_ENTRIES: WorkEntry[] = [
     category: "Composition",
     year: "2023",
     description: "Original compositions and production for Femi Leye",
-    image: "/images/optimized/IMG_2812.webp",
+    image: "/images/IMG_28121.jpg",
     imageAlt: "King Udofia — Femi Leye album production",
   },
   {
@@ -78,7 +78,7 @@ export const WORK_ENTRIES: WorkEntry[] = [
     year: "2025",
     description:
       "Musical direction for the Key30 Orchestra cultural performance series",
-    image: "/images/optimized/IMG_2523.webp",
+    image: "/images/IMG_2523.jpg",
     imageAlt: "King Udofia — Key30 Orchestra cultural series",
   },
   {
@@ -87,7 +87,7 @@ export const WORK_ENTRIES: WorkEntry[] = [
     category: "Music Direction",
     year: "2024",
     description: "Musical direction for Calgary's ethnic festivals programming",
-    image: "/images/optimized/IMG_2442.webp",
+    image: "/images/IMG_24421.jpg",
     imageAlt: "King Udofia — Ethnic Festivals Calgary",
   },
 ];

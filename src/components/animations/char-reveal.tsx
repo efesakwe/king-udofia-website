@@ -99,7 +99,7 @@ export function CharReveal({
     ) : (
       <span
         key={`char-${index}-${char}`}
-        className="inline-block overflow-hidden align-top"
+        className="text-reveal-char"
       >
         <span data-char-reveal className="inline-block">
           {char}

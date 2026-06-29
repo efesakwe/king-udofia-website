@@ -8,49 +8,33 @@ import { usePreloaderComplete } from "@/hooks/use-preloader-complete";
 import { ensureGsapPlugins, gsap } from "@/lib/gsap";
 import { IMAGE_ALTS, IMAGES } from "@/lib/images";
 
-type HeroSlide = {
-  id: string;
-  imageSrc: string;
-  imageAlt: string;
-  objectPosition: string;
-  label: string;
-  headingLines: string[];
-};
-
-const SLIDES: HeroSlide[] = [
+const HERO_IMAGES = [
   {
     id: "gbedu-conducting",
     imageSrc: IMAGES.hero.slide1,
     imageAlt: IMAGE_ALTS.heroSlide1,
     objectPosition: "center 40%",
-    label: "COMPOSER & MUSIC DIRECTOR",
-    headingLines: [
-      "Music that brings story,",
-      "culture, and emotion to life.",
-    ],
   },
   {
     id: "gbedu-ensemble",
     imageSrc: IMAGES.hero.slide2,
     imageAlt: IMAGE_ALTS.heroSlide2,
     objectPosition: "center 40%",
-    label: "GBÈDU — AFRO-JAZZ ORCHESTRAL EXPERIENCE",
-    headingLines: [
-      "Where African rhythm meets",
-      "jazz harmony and orchestral scale.",
-    ],
   },
+] as const;
+
+const HEADLINE_LINES = [
+  "Bringing music to life.",
+  "Sound, designed with purpose.",
 ];
 
 const AUTOPLAY_MS = 6000;
 
 export function HeroCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [displayedIndex, setDisplayedIndex] = useState(0);
   const [entranceReady, setEntranceReady] = useState(false);
 
   const contentRef = useRef<HTMLDivElement>(null);
-  const isAnimating = useRef(false);
   const hasEntered = useRef(false);
 
   usePreloaderComplete(() => {
@@ -62,14 +46,11 @@ export function HeroCarousel() {
     return () => window.clearTimeout(fallback);
   }, []);
 
-  const slide = SLIDES[displayedIndex];
-
   const animateContentIn = useCallback(() => {
     const content = contentRef.current;
     if (!content) return;
 
     ensureGsapPlugins();
-    isAnimating.current = true;
 
     const lines = content.querySelectorAll("[data-hero-line]");
     const buttons = content.querySelector("[data-hero-buttons]");
@@ -94,45 +75,7 @@ export function HeroCarousel() {
         "-=0.35",
       );
     }
-
-    timeline.eventCallback("onComplete", () => {
-      isAnimating.current = false;
-    });
   }, []);
-
-  const animateContentOut = useCallback(() => {
-    const content = contentRef.current;
-    if (!content) return gsap.timeline();
-
-    ensureGsapPlugins();
-
-    const lines = content.querySelectorAll("[data-hero-line]");
-    const buttons = content.querySelector("[data-hero-buttons]");
-
-    return gsap.timeline().to(
-      [lines, buttons],
-      {
-        opacity: 0,
-        y: -18,
-        duration: 0.38,
-        stagger: 0.02,
-        ease: "power2.inOut",
-      },
-    );
-  }, []);
-
-  const transitionToSlide = useCallback(
-    (index: number) => {
-      if (isAnimating.current || index === displayedIndex) return;
-      isAnimating.current = true;
-
-      animateContentOut().eventCallback("onComplete", () => {
-        setDisplayedIndex(index);
-        requestAnimationFrame(() => animateContentIn());
-      });
-    },
-    [animateContentOut, animateContentIn, displayedIndex],
-  );
 
   useEffect(() => {
     if (!entranceReady || hasEntered.current) return;
@@ -145,38 +88,25 @@ export function HeroCarousel() {
     if (!entranceReady) return;
 
     const timer = setInterval(() => {
-      setActiveIndex((current) => {
-        const next = (current + 1) % SLIDES.length;
-        transitionToSlide(next);
-        return next;
-      });
+      setActiveIndex((current) => (current + 1) % HERO_IMAGES.length);
     }, AUTOPLAY_MS);
 
     return () => clearInterval(timer);
-  }, [entranceReady, transitionToSlide]);
-
-  const goToSlide = useCallback(
-    (index: number) => {
-      setActiveIndex(index);
-      transitionToSlide(index);
-    },
-    [transitionToSlide],
-  );
+  }, [entranceReady]);
 
   const scrollPrev = useCallback(() => {
-    const next = (activeIndex - 1 + SLIDES.length) % SLIDES.length;
-    goToSlide(next);
-  }, [activeIndex, goToSlide]);
+    setActiveIndex(
+      (current) => (current - 1 + HERO_IMAGES.length) % HERO_IMAGES.length,
+    );
+  }, []);
 
   const scrollNext = useCallback(() => {
-    const next = (activeIndex + 1) % SLIDES.length;
-    goToSlide(next);
-  }, [activeIndex, goToSlide]);
+    setActiveIndex((current) => (current + 1) % HERO_IMAGES.length);
+  }, []);
 
   return (
     <section className="relative isolate h-screen w-full overflow-hidden bg-background">
-      {/* Stacked full-bleed backgrounds — no horizontal flex bleed */}
-      {SLIDES.map((item, index) => (
+      {HERO_IMAGES.map((item, index) => (
         <div
           key={item.id}
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
@@ -204,22 +134,15 @@ export function HeroCarousel() {
         </div>
       ))}
 
-      {/* Hero copy — always above backgrounds */}
       <div className="pointer-events-none absolute inset-0 z-[2] flex items-center">
         <div
           ref={contentRef}
           className="pointer-events-auto mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-12"
         >
-          <p className="type-label-hero tracking-[0.2em]">{slide.label}</p>
-
-          <h1 className="type-page-title mt-6 max-w-3xl leading-[1.08]">
-            {slide.headingLines.map((line) => (
-              <span
-                key={`${displayedIndex}-${line}`}
-                data-hero-line
-                className="block overflow-hidden"
-              >
-                <span className="inline-block">{line}</span>
+          <h1 className="type-page-title type-hero-title mt-6 max-w-3xl">
+            {HEADLINE_LINES.map((line) => (
+              <span key={line} data-hero-line className="hero-headline-line">
+                {line}
               </span>
             ))}
           </h1>
@@ -246,7 +169,7 @@ export function HeroCarousel() {
 
       <div className="absolute bottom-8 right-6 z-[3] flex items-center gap-4 md:right-10 lg:right-12">
         <span className="font-sans text-sm tabular-nums tracking-widest text-foreground/80">
-          {activeIndex + 1} / {SLIDES.length}
+          {activeIndex + 1} / {HERO_IMAGES.length}
         </span>
         <div className="flex items-center gap-2">
           <MagneticButton

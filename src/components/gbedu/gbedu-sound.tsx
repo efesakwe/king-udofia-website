@@ -16,7 +16,7 @@ const SOUND_CARDS = [
   {
     title: "Orchestral Scale",
     description:
-      "Strings and expanded instrumentation give Gbèdu its cinematic scope. The full ensemble — 20+ musicians — creates moments of overwhelming beauty and power. Orchestration is not decoration; it is the vehicle through which cultural conversation reaches its fullest expression.",
+      "Strings and expanded instrumentation give Gbèdu its cinematic scope. The full ensemble creates moments of overwhelming beauty and power. Orchestration is not decoration; it is the vehicle through which cultural conversation reaches its fullest expression.",
   },
 ] as const;
 

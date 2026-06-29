@@ -27,12 +27,6 @@ export function AboutCta() {
             >
               Work With King
             </MagneticButton>
-            <MagneticButton
-              href="/epk"
-              className="cursor-hover border border-gold px-6 py-3 text-sm uppercase tracking-widest text-gold transition-colors hover:bg-gold/10"
-            >
-              Request the EPK
-            </MagneticButton>
           </div>
         </FadeIn>
       </div>

@@ -88,7 +88,7 @@ export function TextReveal({
   const content =
     split === "line"
       ? units.map((line, index) => (
-          <span key={`line-${index}`} className="block overflow-hidden">
+          <span key={`line-${index}`} className="text-reveal-line">
             <span data-reveal-unit className="inline-block">
               {line}
             </span>
@@ -102,7 +102,7 @@ export function TextReveal({
           ) : (
             <span
               key={`word-${index}`}
-              className="inline-block overflow-hidden align-top"
+              className="text-reveal-char"
             >
               <span data-reveal-unit className="inline-block">
                 {unit}

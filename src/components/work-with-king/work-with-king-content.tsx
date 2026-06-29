@@ -16,6 +16,8 @@ const PROJECT_TYPES = [
   "Other",
 ] as const;
 
+const FORM_ACTION = "https://formsubmit.co/gbedu@kingudofia.com";
+
 const formFieldClass =
   "form-input mt-3 w-full bg-transparent py-3 font-sans text-foreground placeholder:text-muted-dark";
 
@@ -46,9 +48,25 @@ function YoutubeIcon() {
 export function WorkWithKingContent() {
   return (
     <>
-      <section className="py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:grid-cols-2 md:px-10 lg:px-12">
-          <div>
+      <section className="relative h-screen overflow-hidden">
+        <div className="absolute inset-0">
+          <ParallaxImage
+            src={IMAGES.workWithKing}
+            alt={IMAGE_ALTS.workWithKing}
+            priority
+            fixedAspect={false}
+            containerClassName="h-full min-h-screen"
+            objectPosition="center 30%"
+            speed={0.2}
+            width={1600}
+            height={900}
+          />
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/35" />
+
+        <div className="relative z-10 flex h-full items-center">
+          <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-12">
             <FadeIn delay={0}>
               <p className="type-label">Get in Touch</p>
             </FadeIn>
@@ -59,26 +77,11 @@ export function WorkWithKingContent() {
 
             <TextReveal
               text="Whether you're an artist, organization, venue, or filmmaker — let's create something meaningful together."
-              className="type-body mt-6 max-w-2xl"
+              className="type-body mt-6 max-w-2xl text-foreground/90"
               delay={0.15}
               stagger={0.02}
             />
           </div>
-
-          <FadeIn delay={0.2}>
-            <div className="border-l-[3px] border-gold md:max-w-md md:justify-self-end">
-              <ParallaxImage
-                src={IMAGES.workWithKing}
-                alt={IMAGE_ALTS.workWithKing}
-                containerClassName="aspect-[3/4] w-full"
-                objectPosition="50% 15%"
-                speed={0.12}
-                width={900}
-                height={1200}
-                priority
-              />
-            </div>
-          </FadeIn>
         </div>
       </section>
 
@@ -106,21 +109,10 @@ export function WorkWithKingContent() {
                     General Inquiries
                   </p>
                   <a
-                    href="mailto:hello@kingudofia.com"
+                    href="mailto:gbedu@kingudofia.com"
                     className="cursor-hover mt-2 inline-block link-arrow"
                   >
-                    hello@kingudofia.com
-                  </a>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-muted-dark">
-                    Booking & Events
-                  </p>
-                  <a
-                    href="mailto:booking@kingudofia.com"
-                    className="cursor-hover mt-2 inline-block link-arrow"
-                  >
-                    booking@kingudofia.com
+                    gbedu@kingudofia.com
                   </a>
                 </div>
               </div>
@@ -129,7 +121,7 @@ export function WorkWithKingContent() {
             <FadeIn delay={0.3}>
               <div className="mt-10 flex items-center gap-4">
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/kingzleyu/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -138,7 +130,7 @@ export function WorkWithKingContent() {
                   <InstagramIcon />
                 </a>
                 <a
-                  href="https://youtube.com"
+                  href="https://youtube.com/@kingzleyu?si=ba0dJ-BwsCrZIg3K"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="YouTube"
@@ -148,29 +140,21 @@ export function WorkWithKingContent() {
                 </a>
               </div>
             </FadeIn>
-
-            <FadeIn delay={0.35}>
-              <MagneticButton
-                href="/epk"
-                className="cursor-hover mt-10 inline-block border border-gold px-6 py-3 text-sm uppercase tracking-widest text-gold transition-colors hover:bg-gold/10"
-              >
-                Request EPK
-              </MagneticButton>
-            </FadeIn>
           </div>
 
           <div>
-            {/* TODO: connect to form handler (Formspree, Resend, or Cloudflare Workers) */}
             <form
+              action={FORM_ACTION}
+              method="POST"
               className="flex flex-col gap-8"
-              onSubmit={(event) => event.preventDefault()}
             >
+              <input type="hidden" name="_subject" value="Work With King — New inquiry" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+
               <FadeIn delay={0.1}>
                 <div>
-                  <label
-                    htmlFor="contact-name"
-                    className="type-label"
-                  >
+                  <label htmlFor="contact-name" className="type-label">
                     Name
                   </label>
                   <input
@@ -187,10 +171,7 @@ export function WorkWithKingContent() {
 
               <FadeIn delay={0.15}>
                 <div>
-                  <label
-                    htmlFor="contact-email"
-                    className="type-label"
-                  >
+                  <label htmlFor="contact-email" className="type-label">
                     Email
                   </label>
                   <input
@@ -207,10 +188,7 @@ export function WorkWithKingContent() {
 
               <FadeIn delay={0.2}>
                 <div>
-                  <label
-                    htmlFor="contact-organization"
-                    className="type-label"
-                  >
+                  <label htmlFor="contact-organization" className="type-label">
                     Organization{" "}
                     <span className="normal-case tracking-normal text-muted-dark">
                       (optional)
@@ -228,10 +206,7 @@ export function WorkWithKingContent() {
 
               <FadeIn delay={0.25}>
                 <div>
-                  <label
-                    htmlFor="contact-project-type"
-                    className="type-label"
-                  >
+                  <label htmlFor="contact-project-type" className="type-label">
                     Project Type
                   </label>
                   <select
@@ -255,10 +230,7 @@ export function WorkWithKingContent() {
 
               <FadeIn delay={0.3}>
                 <div>
-                  <label
-                    htmlFor="contact-message"
-                    className="type-label"
-                  >
+                  <label htmlFor="contact-message" className="type-label">
                     Message
                   </label>
                   <textarea
@@ -285,7 +257,7 @@ export function WorkWithKingContent() {
         </div>
       </section>
 
-      <section className="py-32">
+      <section className="pb-32">
         <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-12">
           <FadeIn>
             <div className="section-heading-row">
@@ -295,17 +267,6 @@ export function WorkWithKingContent() {
           <div className="mt-12">
             <CollaborationGrid />
           </div>
-        </div>
-      </section>
-
-      <section className="pb-32">
-        <div className="mx-auto max-w-7xl px-6 text-center md:px-10 lg:px-12">
-          <FadeIn delay={0}>
-            <div className="mx-auto divider-rule divider-rule--gold w-12" aria-hidden="true" />
-            <p className="mt-6 text-sm uppercase tracking-[0.25em] text-muted">
-              Based in the USA. Available worldwide.
-            </p>
-          </FadeIn>
         </div>
       </section>
     </>

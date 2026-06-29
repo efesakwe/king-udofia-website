@@ -30,8 +30,8 @@ export function AboutPreview() {
 
           <FadeIn delay={0.1}>
             <div className="section-heading-row">
-              <h2 className="type-section-heading leading-snug">
-                Powerful musical experiences rooted in culture and story.
+              <h2 className="type-section-heading">
+                One of Calgary&apos;s most versatile musical architects.
               </h2>
             </div>
           </FadeIn>

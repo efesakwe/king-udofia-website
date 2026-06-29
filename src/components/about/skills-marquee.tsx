@@ -1,5 +1,5 @@
 const SKILLS =
-  "Composition · Orchestral Arrangement · Jazz Composition · Music Direction · Conducting · Live Performance · Recording · Film Scoring · Worship Direction · Cultural Production";
+  "Composition · Orchestral Arrangement · Jazz Composition · Music Direction · Conducting · Live Performance · Recording · Film Scoring · Worship Direction";
 
 function SkillsContent() {
   const repeated = Array.from({ length: 3 }, () => SKILLS).join(" · ");

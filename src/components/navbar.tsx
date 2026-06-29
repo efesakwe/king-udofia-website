@@ -12,8 +12,6 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Gbèdu", href: "/gbedu" },
-  { label: "Selected Work", href: "/selected-work" },
-  { label: "Press", href: "/press" },
 ] as const;
 
 const CTA_HREF = "/work-with-king";
@@ -220,7 +218,7 @@ export function Navbar() {
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 md:h-24 md:px-10 lg:px-12">
           <Link href="/" className="group shrink-0 cursor-hover">
-            <span className="block font-serif text-lg leading-tight text-foreground transition-colors group-hover:text-gold md:text-xl">
+            <span className="block font-serif text-lg leading-normal text-foreground transition-colors group-hover:text-gold md:text-xl">
               King Udofia
             </span>
             <span className="mt-1 block font-sans text-[9px] uppercase tracking-[0.3em] text-muted transition-colors group-hover:text-gold-light md:text-[10px]">

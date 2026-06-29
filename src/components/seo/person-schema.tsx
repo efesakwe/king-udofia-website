@@ -7,10 +7,6 @@ const personSchema = {
   jobTitle: "Composer, Arranger & Music Director",
   description: DEFAULT_DESCRIPTION,
   url: SITE_URL,
-  homeLocation: {
-    "@type": "Place",
-    name: "United States",
-  },
   knowsAbout: [
     "Composition",
     "Orchestration",
@@ -20,8 +16,8 @@ const personSchema = {
     "Film Scoring",
   ],
   sameAs: [
-    "https://instagram.com",
-    "https://youtube.com",
+    "https://www.instagram.com/kingzleyu/",
+    "https://youtube.com/@kingzleyu?si=ba0dJ-BwsCrZIg3K",
   ],
 };
 

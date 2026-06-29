@@ -28,8 +28,8 @@ export default function Home() {
           />
         </div>
         <AboutPreview />
-        <CollaboratorMarquee />
         <SelectedWork />
+        <CollaboratorMarquee />
         <GbeduFeature />
         <PressCoverage />
         <Testimonials />

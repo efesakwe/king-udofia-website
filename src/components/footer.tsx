@@ -10,30 +10,23 @@ const NAVIGATE_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Gbèdu", href: "/gbedu" },
-  { label: "Selected Work", href: "/selected-work" },
-  { label: "Press & Testimonials", href: "/press" },
   { label: "Work With King", href: "/work-with-king" },
 ] as const;
 
 const CONNECT_LINKS = [
   {
     label: "Instagram",
-    href: "https://instagram.com",
+    href: "https://www.instagram.com/kingzleyu/",
     external: true,
   },
   {
     label: "YouTube",
-    href: "https://youtube.com",
+    href: "https://youtube.com/@kingzleyu?si=ba0dJ-BwsCrZIg3K",
     external: true,
   },
   {
     label: "Booking Inquiries",
     href: "/work-with-king",
-    external: false,
-  },
-  {
-    label: "Request EPK",
-    href: "/epk",
     external: false,
   },
 ] as const;
@@ -143,8 +136,7 @@ export function Footer() {
               </p>
             </Link>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted">
-              Creating powerful musical experiences across live performance,
-              recording, film, worship, and cultural productions.
+              Creating powerful musical experiences across different platforms
             </p>
           </div>
 
